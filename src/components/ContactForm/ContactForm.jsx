@@ -24,16 +24,17 @@ export class ContactForm extends Component {
     handleSubmit = e => {
         e.preventDefault();
         this.props.onSubmitForm(this.state);
-        this.reset();
+        const findName = this.props.contacts.find(item => item.name.toLowerCase() === this.state.name.toLowerCase());
+        if (!findName) this.reset();
     };
     
     reset = () => {
         this.setState({ name: '', number: '' });
     };
+
     render() {
         const { name, number } = this.state;
         const { handleSubmit, handleChange, nameId, numberId } = this;
-
 
          return(  <div className={css.container}>
                 <form onSubmit={handleSubmit}>
@@ -61,7 +62,6 @@ export class ContactForm extends Component {
                         />
                     <button type="submit" className={css.btn}>Add contact</button>
              </form>
-         </div>)
-        
+         </div>)   
     }
-}
+};
